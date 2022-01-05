@@ -3,16 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Shelf from './Shelf';
-
-const shelfType = ['currentlyReading', 'wantToRead', 'read'];
+import { SHELVES } from './utils/Constants';
 
 const BookShelf = (props) => {
   const { booksList, onSelect } = props;
-  const currentlyReading =
-    booksList.filter((book) => book.shelf === shelfType[0]) || [];
-  const wantToRead =
-    booksList.filter((book) => book.shelf === shelfType[1]) || [];
-  const read = booksList.filter((book) => book.shelf === shelfType[2]) || [];
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -20,17 +14,21 @@ const BookShelf = (props) => {
       </div>
       <div className="list-books-content">
         <div>
-          <Shelf
-            header="Currently Reading"
-            booksList={currentlyReading}
-            onSelect={onSelect}
-          />
-          <Shelf
-            header="Want to Read"
-            booksList={wantToRead}
-            onSelect={onSelect}
-          />
-          <Shelf header="Read" booksList={read} onSelect={onSelect} />
+          {SHELVES
+            .filter((shelfConfig) => shelfConfig.id !== 'none')
+            .map((shelfConfig) => {
+              const sheldType =
+                booksList.filter((book) => book.shelf === shelfConfig.id) || [];
+              return (
+                <Shelf
+                  key={shelfConfig.id}
+                  header={shelfConfig.title}
+                  booksList={sheldType}
+                  onSelect={onSelect}
+                />
+              );
+            }
+          )}
         </div>
       </div>
       <div className="open-search">

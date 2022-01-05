@@ -12,12 +12,9 @@ class BooksApp extends React.Component {
     searchResults: [],
   };
 
-  componentDidMount() {
-    BooksAPI.getAll().then((data) =>
-      this.setState(() => ({
-        booksList: data,
-      }))
-    );
+  async componentDidMount() {
+    const booksList = await BooksAPI.getAll();
+    this.setState({ booksList });
   }
 
   onSelect = (event) => {
@@ -29,6 +26,7 @@ class BooksApp extends React.Component {
       case 'read':
       case 'wantToRead':
       case 'currentlyReading':
+      case 'none':
         BooksAPI.update({ id }, action).then(() =>
           this.setState((prevState) => {
             const bookIndex = prevState.booksList.findIndex(

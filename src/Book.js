@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const optionMenu = ['currentlyReading', 'wantToRead', 'read', 'none'];
+import { SHELVES } from './utils/Constants';
 
 const Book = ({ title, authors, id, imageLinks, onSelect, shelf }) => (
   <div className="book">
@@ -17,15 +16,15 @@ const Book = ({ title, authors, id, imageLinks, onSelect, shelf }) => (
       <div className="book-shelf-changer">
         <select
           onChange={onSelect}
-          value={shelf ? `${shelf}|${id}` : `${optionMenu[3]}`}
+          value={shelf ? `${shelf}|${id}` : `${SHELVES[3].id}|${id}`}
         >
           <option value="move" disabled>
             Move to...
           </option>
-          <option value={`${optionMenu[0]}|${id}`}>Currently Reading</option>
-          <option value={`${optionMenu[1]}|${id}`}>Want to Read</option>
-          <option value={`${optionMenu[2]}|${id}`}>Read</option>
-          <option value={`${optionMenu[3]}`}>None</option>
+          <option value={`${SHELVES[0].id}|${id}`}>Currently Reading</option>
+          <option value={`${SHELVES[1].id}|${id}`}>Want to Read</option>
+          <option value={`${SHELVES[2].id}|${id}`}>Read</option>
+          <option value={`${SHELVES[3].id}|${id}`}>None</option>
         </select>
       </div>
     </div>

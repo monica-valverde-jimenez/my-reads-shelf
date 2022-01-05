@@ -8,8 +8,8 @@ const Shelf = ({ header, booksList, onSelect }) => (
     <h2 className="bookshelf-title">{header}</h2>
     <div className="bookshelf-books">
       <ol className="books-grid">
-        {booksList.map((book, index) => (
-          <li key={`title-${index}`}>
+        {booksList.map((book) => (
+          <li key={book.id}>
             <Book
               title={book.title}
               authors={book.authors}
@@ -36,7 +36,7 @@ Shelf.propTypes = {
         smallThumbnail: PropTypes.string,
         thumbnail: PropTypes.string,
       }),
-      shelf: PropTypes.number,
+      shelf: PropTypes.string,
     })
   ),
   onSelect: PropTypes.func.isRequired,
